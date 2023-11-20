@@ -1,15 +1,28 @@
 <script setup lang="ts">
-    import { RouterLink } from 'vue-router';
+
+import type { RouterLink } from '@/router/list-routes';
+
+    interface Props {
+      title?: string;
+      links: RouterLink[]
+    }
+
+    defineProps<Props>();
 </script>
 
 <template>
     <nav>
-        <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="25" height="25" />
-        <span>App</span>
+        <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="35" height="35" />
+        <!-- <span v-if="$props.title">{{ $props.title }}</span> -->
+        <span>{{ $props.title || 'MyApp' }}</span>
 
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/counter">Counter</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink 
+          v-for="link in $props.links" 
+          :key="link.path"
+          :to="link.path">
+          {{ link.title }}
+        </RouterLink>
+        
     </nav>
 </template>
 
